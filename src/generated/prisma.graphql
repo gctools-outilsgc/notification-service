@@ -1,0 +1,856 @@
+enum actionLevel {
+  NoUserAction
+  Featured
+  UserActionRequired
+}
+
+type AggregateEmail {
+  count: Int!
+}
+
+type AggregateNotification {
+  count: Int!
+}
+
+type AggregateOnline {
+  count: Int!
+}
+
+type AggregatewhoDunIt {
+  count: Int!
+}
+
+type BatchPayload {
+  count: Long!
+}
+
+type Email {
+  id: ID!
+  from: String!
+  to: String!
+  subject: String!
+  body: String!
+  status: Status!
+  send_error: String
+  html: Boolean!
+}
+
+type EmailConnection {
+  pageInfo: PageInfo!
+  edges: [EmailEdge]!
+  aggregate: AggregateEmail!
+}
+
+input EmailCreateInput {
+  from: String!
+  to: String!
+  subject: String!
+  body: String!
+  status: Status!
+  send_error: String
+  html: Boolean
+}
+
+input EmailCreateOneInput {
+  create: EmailCreateInput
+  connect: EmailWhereUniqueInput
+}
+
+type EmailEdge {
+  node: Email!
+  cursor: String!
+}
+
+enum EmailOrderByInput {
+  id_ASC
+  id_DESC
+  from_ASC
+  from_DESC
+  to_ASC
+  to_DESC
+  subject_ASC
+  subject_DESC
+  body_ASC
+  body_DESC
+  status_ASC
+  status_DESC
+  send_error_ASC
+  send_error_DESC
+  html_ASC
+  html_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type EmailPreviousValues {
+  id: ID!
+  from: String!
+  to: String!
+  subject: String!
+  body: String!
+  status: Status!
+  send_error: String
+  html: Boolean!
+}
+
+type EmailSubscriptionPayload {
+  mutation: MutationType!
+  node: Email
+  updatedFields: [String!]
+  previousValues: EmailPreviousValues
+}
+
+input EmailSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EmailWhereInput
+  AND: [EmailSubscriptionWhereInput!]
+  OR: [EmailSubscriptionWhereInput!]
+  NOT: [EmailSubscriptionWhereInput!]
+}
+
+input EmailUpdateDataInput {
+  from: String
+  to: String
+  subject: String
+  body: String
+  status: Status
+  send_error: String
+  html: Boolean
+}
+
+input EmailUpdateInput {
+  from: String
+  to: String
+  subject: String
+  body: String
+  status: Status
+  send_error: String
+  html: Boolean
+}
+
+input EmailUpdateManyMutationInput {
+  from: String
+  to: String
+  subject: String
+  body: String
+  status: Status
+  send_error: String
+  html: Boolean
+}
+
+input EmailUpdateOneInput {
+  create: EmailCreateInput
+  update: EmailUpdateDataInput
+  upsert: EmailUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EmailWhereUniqueInput
+}
+
+input EmailUpsertNestedInput {
+  update: EmailUpdateDataInput!
+  create: EmailCreateInput!
+}
+
+input EmailWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  from: String
+  from_not: String
+  from_in: [String!]
+  from_not_in: [String!]
+  from_lt: String
+  from_lte: String
+  from_gt: String
+  from_gte: String
+  from_contains: String
+  from_not_contains: String
+  from_starts_with: String
+  from_not_starts_with: String
+  from_ends_with: String
+  from_not_ends_with: String
+  to: String
+  to_not: String
+  to_in: [String!]
+  to_not_in: [String!]
+  to_lt: String
+  to_lte: String
+  to_gt: String
+  to_gte: String
+  to_contains: String
+  to_not_contains: String
+  to_starts_with: String
+  to_not_starts_with: String
+  to_ends_with: String
+  to_not_ends_with: String
+  subject: String
+  subject_not: String
+  subject_in: [String!]
+  subject_not_in: [String!]
+  subject_lt: String
+  subject_lte: String
+  subject_gt: String
+  subject_gte: String
+  subject_contains: String
+  subject_not_contains: String
+  subject_starts_with: String
+  subject_not_starts_with: String
+  subject_ends_with: String
+  subject_not_ends_with: String
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  status: Status
+  status_not: Status
+  status_in: [Status!]
+  status_not_in: [Status!]
+  send_error: String
+  send_error_not: String
+  send_error_in: [String!]
+  send_error_not_in: [String!]
+  send_error_lt: String
+  send_error_lte: String
+  send_error_gt: String
+  send_error_gte: String
+  send_error_contains: String
+  send_error_not_contains: String
+  send_error_starts_with: String
+  send_error_not_starts_with: String
+  send_error_ends_with: String
+  send_error_not_ends_with: String
+  html: Boolean
+  html_not: Boolean
+  AND: [EmailWhereInput!]
+  OR: [EmailWhereInput!]
+  NOT: [EmailWhereInput!]
+}
+
+input EmailWhereUniqueInput {
+  id: ID
+}
+
+scalar Long
+
+type Mutation {
+  createEmail(data: EmailCreateInput!): Email!
+  updateEmail(data: EmailUpdateInput!, where: EmailWhereUniqueInput!): Email
+  updateManyEmails(data: EmailUpdateManyMutationInput!, where: EmailWhereInput): BatchPayload!
+  upsertEmail(where: EmailWhereUniqueInput!, create: EmailCreateInput!, update: EmailUpdateInput!): Email!
+  deleteEmail(where: EmailWhereUniqueInput!): Email
+  deleteManyEmails(where: EmailWhereInput): BatchPayload!
+  createNotification(data: NotificationCreateInput!): Notification!
+  updateNotification(data: NotificationUpdateInput!, where: NotificationWhereUniqueInput!): Notification
+  updateManyNotifications(data: NotificationUpdateManyMutationInput!, where: NotificationWhereInput): BatchPayload!
+  upsertNotification(where: NotificationWhereUniqueInput!, create: NotificationCreateInput!, update: NotificationUpdateInput!): Notification!
+  deleteNotification(where: NotificationWhereUniqueInput!): Notification
+  deleteManyNotifications(where: NotificationWhereInput): BatchPayload!
+  createOnline(data: OnlineCreateInput!): Online!
+  updateOnline(data: OnlineUpdateInput!, where: OnlineWhereUniqueInput!): Online
+  updateManyOnlines(data: OnlineUpdateManyMutationInput!, where: OnlineWhereInput): BatchPayload!
+  upsertOnline(where: OnlineWhereUniqueInput!, create: OnlineCreateInput!, update: OnlineUpdateInput!): Online!
+  deleteOnline(where: OnlineWhereUniqueInput!): Online
+  deleteManyOnlines(where: OnlineWhereInput): BatchPayload!
+  createwhoDunIt(data: whoDunItCreateInput!): whoDunIt!
+  updateManywhoDunIts(data: whoDunItUpdateManyMutationInput!, where: whoDunItWhereInput): BatchPayload!
+  deleteManywhoDunIts(where: whoDunItWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type Notification {
+  id: ID!
+  gcID: String!
+  appID: String!
+  actionLink: String
+  actionLevel: actionLevel!
+  email: Email
+  online: Online
+  whoDunIt: whoDunIt
+}
+
+type NotificationConnection {
+  pageInfo: PageInfo!
+  edges: [NotificationEdge]!
+  aggregate: AggregateNotification!
+}
+
+input NotificationCreateInput {
+  gcID: String!
+  appID: String!
+  actionLink: String
+  actionLevel: actionLevel!
+  email: EmailCreateOneInput
+  online: OnlineCreateOneInput
+  whoDunIt: whoDunItCreateOneWithoutNotificationsInput
+}
+
+input NotificationCreateManyWithoutWhoDunItInput {
+  create: [NotificationCreateWithoutWhoDunItInput!]
+  connect: [NotificationWhereUniqueInput!]
+}
+
+input NotificationCreateWithoutWhoDunItInput {
+  gcID: String!
+  appID: String!
+  actionLink: String
+  actionLevel: actionLevel!
+  email: EmailCreateOneInput
+  online: OnlineCreateOneInput
+}
+
+type NotificationEdge {
+  node: Notification!
+  cursor: String!
+}
+
+enum NotificationOrderByInput {
+  id_ASC
+  id_DESC
+  gcID_ASC
+  gcID_DESC
+  appID_ASC
+  appID_DESC
+  actionLink_ASC
+  actionLink_DESC
+  actionLevel_ASC
+  actionLevel_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type NotificationPreviousValues {
+  id: ID!
+  gcID: String!
+  appID: String!
+  actionLink: String
+  actionLevel: actionLevel!
+}
+
+type NotificationSubscriptionPayload {
+  mutation: MutationType!
+  node: Notification
+  updatedFields: [String!]
+  previousValues: NotificationPreviousValues
+}
+
+input NotificationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: NotificationWhereInput
+  AND: [NotificationSubscriptionWhereInput!]
+  OR: [NotificationSubscriptionWhereInput!]
+  NOT: [NotificationSubscriptionWhereInput!]
+}
+
+input NotificationUpdateInput {
+  gcID: String
+  appID: String
+  actionLink: String
+  actionLevel: actionLevel
+  email: EmailUpdateOneInput
+  online: OnlineUpdateOneInput
+  whoDunIt: whoDunItUpdateOneWithoutNotificationsInput
+}
+
+input NotificationUpdateManyMutationInput {
+  gcID: String
+  appID: String
+  actionLink: String
+  actionLevel: actionLevel
+}
+
+input NotificationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  gcID: String
+  gcID_not: String
+  gcID_in: [String!]
+  gcID_not_in: [String!]
+  gcID_lt: String
+  gcID_lte: String
+  gcID_gt: String
+  gcID_gte: String
+  gcID_contains: String
+  gcID_not_contains: String
+  gcID_starts_with: String
+  gcID_not_starts_with: String
+  gcID_ends_with: String
+  gcID_not_ends_with: String
+  appID: String
+  appID_not: String
+  appID_in: [String!]
+  appID_not_in: [String!]
+  appID_lt: String
+  appID_lte: String
+  appID_gt: String
+  appID_gte: String
+  appID_contains: String
+  appID_not_contains: String
+  appID_starts_with: String
+  appID_not_starts_with: String
+  appID_ends_with: String
+  appID_not_ends_with: String
+  actionLink: String
+  actionLink_not: String
+  actionLink_in: [String!]
+  actionLink_not_in: [String!]
+  actionLink_lt: String
+  actionLink_lte: String
+  actionLink_gt: String
+  actionLink_gte: String
+  actionLink_contains: String
+  actionLink_not_contains: String
+  actionLink_starts_with: String
+  actionLink_not_starts_with: String
+  actionLink_ends_with: String
+  actionLink_not_ends_with: String
+  actionLevel: actionLevel
+  actionLevel_not: actionLevel
+  actionLevel_in: [actionLevel!]
+  actionLevel_not_in: [actionLevel!]
+  email: EmailWhereInput
+  online: OnlineWhereInput
+  whoDunIt: whoDunItWhereInput
+  AND: [NotificationWhereInput!]
+  OR: [NotificationWhereInput!]
+  NOT: [NotificationWhereInput!]
+}
+
+input NotificationWhereUniqueInput {
+  id: ID
+}
+
+type Online {
+  id: ID!
+  titleEn: String!
+  titleFr: String!
+  descriptionEn: String!
+  descriptionFr: String!
+  viewed: Boolean!
+}
+
+type OnlineConnection {
+  pageInfo: PageInfo!
+  edges: [OnlineEdge]!
+  aggregate: AggregateOnline!
+}
+
+input OnlineCreateInput {
+  titleEn: String!
+  titleFr: String!
+  descriptionEn: String!
+  descriptionFr: String!
+  viewed: Boolean
+}
+
+input OnlineCreateOneInput {
+  create: OnlineCreateInput
+  connect: OnlineWhereUniqueInput
+}
+
+type OnlineEdge {
+  node: Online!
+  cursor: String!
+}
+
+enum OnlineOrderByInput {
+  id_ASC
+  id_DESC
+  titleEn_ASC
+  titleEn_DESC
+  titleFr_ASC
+  titleFr_DESC
+  descriptionEn_ASC
+  descriptionEn_DESC
+  descriptionFr_ASC
+  descriptionFr_DESC
+  viewed_ASC
+  viewed_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type OnlinePreviousValues {
+  id: ID!
+  titleEn: String!
+  titleFr: String!
+  descriptionEn: String!
+  descriptionFr: String!
+  viewed: Boolean!
+}
+
+type OnlineSubscriptionPayload {
+  mutation: MutationType!
+  node: Online
+  updatedFields: [String!]
+  previousValues: OnlinePreviousValues
+}
+
+input OnlineSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: OnlineWhereInput
+  AND: [OnlineSubscriptionWhereInput!]
+  OR: [OnlineSubscriptionWhereInput!]
+  NOT: [OnlineSubscriptionWhereInput!]
+}
+
+input OnlineUpdateDataInput {
+  titleEn: String
+  titleFr: String
+  descriptionEn: String
+  descriptionFr: String
+  viewed: Boolean
+}
+
+input OnlineUpdateInput {
+  titleEn: String
+  titleFr: String
+  descriptionEn: String
+  descriptionFr: String
+  viewed: Boolean
+}
+
+input OnlineUpdateManyMutationInput {
+  titleEn: String
+  titleFr: String
+  descriptionEn: String
+  descriptionFr: String
+  viewed: Boolean
+}
+
+input OnlineUpdateOneInput {
+  create: OnlineCreateInput
+  update: OnlineUpdateDataInput
+  upsert: OnlineUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: OnlineWhereUniqueInput
+}
+
+input OnlineUpsertNestedInput {
+  update: OnlineUpdateDataInput!
+  create: OnlineCreateInput!
+}
+
+input OnlineWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  titleEn: String
+  titleEn_not: String
+  titleEn_in: [String!]
+  titleEn_not_in: [String!]
+  titleEn_lt: String
+  titleEn_lte: String
+  titleEn_gt: String
+  titleEn_gte: String
+  titleEn_contains: String
+  titleEn_not_contains: String
+  titleEn_starts_with: String
+  titleEn_not_starts_with: String
+  titleEn_ends_with: String
+  titleEn_not_ends_with: String
+  titleFr: String
+  titleFr_not: String
+  titleFr_in: [String!]
+  titleFr_not_in: [String!]
+  titleFr_lt: String
+  titleFr_lte: String
+  titleFr_gt: String
+  titleFr_gte: String
+  titleFr_contains: String
+  titleFr_not_contains: String
+  titleFr_starts_with: String
+  titleFr_not_starts_with: String
+  titleFr_ends_with: String
+  titleFr_not_ends_with: String
+  descriptionEn: String
+  descriptionEn_not: String
+  descriptionEn_in: [String!]
+  descriptionEn_not_in: [String!]
+  descriptionEn_lt: String
+  descriptionEn_lte: String
+  descriptionEn_gt: String
+  descriptionEn_gte: String
+  descriptionEn_contains: String
+  descriptionEn_not_contains: String
+  descriptionEn_starts_with: String
+  descriptionEn_not_starts_with: String
+  descriptionEn_ends_with: String
+  descriptionEn_not_ends_with: String
+  descriptionFr: String
+  descriptionFr_not: String
+  descriptionFr_in: [String!]
+  descriptionFr_not_in: [String!]
+  descriptionFr_lt: String
+  descriptionFr_lte: String
+  descriptionFr_gt: String
+  descriptionFr_gte: String
+  descriptionFr_contains: String
+  descriptionFr_not_contains: String
+  descriptionFr_starts_with: String
+  descriptionFr_not_starts_with: String
+  descriptionFr_ends_with: String
+  descriptionFr_not_ends_with: String
+  viewed: Boolean
+  viewed_not: Boolean
+  AND: [OnlineWhereInput!]
+  OR: [OnlineWhereInput!]
+  NOT: [OnlineWhereInput!]
+}
+
+input OnlineWhereUniqueInput {
+  id: ID
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  email(where: EmailWhereUniqueInput!): Email
+  emails(where: EmailWhereInput, orderBy: EmailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Email]!
+  emailsConnection(where: EmailWhereInput, orderBy: EmailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EmailConnection!
+  notification(where: NotificationWhereUniqueInput!): Notification
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification]!
+  notificationsConnection(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NotificationConnection!
+  online(where: OnlineWhereUniqueInput!): Online
+  onlines(where: OnlineWhereInput, orderBy: OnlineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Online]!
+  onlinesConnection(where: OnlineWhereInput, orderBy: OnlineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OnlineConnection!
+  whoDunIts(where: whoDunItWhereInput, orderBy: whoDunItOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [whoDunIt]!
+  whoDunItsConnection(where: whoDunItWhereInput, orderBy: whoDunItOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): whoDunItConnection!
+  node(id: ID!): Node
+}
+
+enum Status {
+  Sent
+  Queued
+}
+
+type Subscription {
+  email(where: EmailSubscriptionWhereInput): EmailSubscriptionPayload
+  notification(where: NotificationSubscriptionWhereInput): NotificationSubscriptionPayload
+  online(where: OnlineSubscriptionWhereInput): OnlineSubscriptionPayload
+  whoDunIt(where: whoDunItSubscriptionWhereInput): whoDunItSubscriptionPayload
+}
+
+type whoDunIt {
+  gcID: String
+  teamID: String
+  organizationID: String
+  notifications(where: NotificationWhereInput, orderBy: NotificationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Notification!]
+}
+
+type whoDunItConnection {
+  pageInfo: PageInfo!
+  edges: [whoDunItEdge]!
+  aggregate: AggregatewhoDunIt!
+}
+
+input whoDunItCreateInput {
+  gcID: String
+  teamID: String
+  organizationID: String
+  notifications: NotificationCreateManyWithoutWhoDunItInput
+}
+
+input whoDunItCreateOneWithoutNotificationsInput {
+  create: whoDunItCreateWithoutNotificationsInput
+}
+
+input whoDunItCreateWithoutNotificationsInput {
+  gcID: String
+  teamID: String
+  organizationID: String
+}
+
+type whoDunItEdge {
+  node: whoDunIt!
+  cursor: String!
+}
+
+enum whoDunItOrderByInput {
+  gcID_ASC
+  gcID_DESC
+  teamID_ASC
+  teamID_DESC
+  organizationID_ASC
+  organizationID_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type whoDunItPreviousValues {
+  gcID: String
+  teamID: String
+  organizationID: String
+}
+
+type whoDunItSubscriptionPayload {
+  mutation: MutationType!
+  node: whoDunIt
+  updatedFields: [String!]
+  previousValues: whoDunItPreviousValues
+}
+
+input whoDunItSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: whoDunItWhereInput
+  AND: [whoDunItSubscriptionWhereInput!]
+  OR: [whoDunItSubscriptionWhereInput!]
+  NOT: [whoDunItSubscriptionWhereInput!]
+}
+
+input whoDunItUpdateManyMutationInput {
+  gcID: String
+  teamID: String
+  organizationID: String
+}
+
+input whoDunItUpdateOneWithoutNotificationsInput {
+  create: whoDunItCreateWithoutNotificationsInput
+  update: whoDunItUpdateWithoutNotificationsDataInput
+  upsert: whoDunItUpsertWithoutNotificationsInput
+  delete: Boolean
+  disconnect: Boolean
+}
+
+input whoDunItUpdateWithoutNotificationsDataInput {
+  gcID: String
+  teamID: String
+  organizationID: String
+}
+
+input whoDunItUpsertWithoutNotificationsInput {
+  update: whoDunItUpdateWithoutNotificationsDataInput!
+  create: whoDunItCreateWithoutNotificationsInput!
+}
+
+input whoDunItWhereInput {
+  gcID: String
+  gcID_not: String
+  gcID_in: [String!]
+  gcID_not_in: [String!]
+  gcID_lt: String
+  gcID_lte: String
+  gcID_gt: String
+  gcID_gte: String
+  gcID_contains: String
+  gcID_not_contains: String
+  gcID_starts_with: String
+  gcID_not_starts_with: String
+  gcID_ends_with: String
+  gcID_not_ends_with: String
+  teamID: String
+  teamID_not: String
+  teamID_in: [String!]
+  teamID_not_in: [String!]
+  teamID_lt: String
+  teamID_lte: String
+  teamID_gt: String
+  teamID_gte: String
+  teamID_contains: String
+  teamID_not_contains: String
+  teamID_starts_with: String
+  teamID_not_starts_with: String
+  teamID_ends_with: String
+  teamID_not_ends_with: String
+  organizationID: String
+  organizationID_not: String
+  organizationID_in: [String!]
+  organizationID_not_in: [String!]
+  organizationID_lt: String
+  organizationID_lte: String
+  organizationID_gt: String
+  organizationID_gte: String
+  organizationID_contains: String
+  organizationID_not_contains: String
+  organizationID_starts_with: String
+  organizationID_not_starts_with: String
+  organizationID_ends_with: String
+  organizationID_not_ends_with: String
+  notifications_every: NotificationWhereInput
+  notifications_some: NotificationWhereInput
+  notifications_none: NotificationWhereInput
+  AND: [whoDunItWhereInput!]
+  OR: [whoDunItWhereInput!]
+  NOT: [whoDunItWhereInput!]
+}

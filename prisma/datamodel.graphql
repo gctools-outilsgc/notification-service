@@ -2,28 +2,51 @@
 # For information on how to create a data model please see the following reference.
 # https://www.prisma.io/docs/1.17/data-model-and-migrations/data-model-knul/
 
-
-# Example only - Replace with your own data model:
-
-type Profile {
-  id: ID! @unique
-  gcID: String! @unique
-  name: String!
-  email: String! @unique
-  mobilePhone: String
-  officePhone: String
-  address: Address @relation(name:"Resident", onDelete: CASCADE)
-  titleEn: String
-  titleFr: String
-  supervisor: Profile @relation(name:"Employees")
+enum Status {
+  Sent
+  Queued
 }
 
-type Address {
+enum actionLevel {
+  NoUserAction
+  Featured
+  UserActionRequired
+}
+
+type Notification{
   id: ID! @unique
-  streetAddress: String!
-  city: String!
-  province: String!
-  postalCode: String!
-  country: String!
-  resident: Profile! @relation(name:"Resident")
+  gcID: String!
+  appID: String!
+  actionLink: String
+  actionLevel: actionLevel!
+  email: Email
+  online: Online
+  whoDunIt: whoDunIt @relation(name:"EventTriggerer")
+}
+
+type whoDunIt {
+  gcID: String,
+  teamID: String,
+  organizationID: String
+  notifications: [Notification!]! @relation(name:"EventTriggerer")
+}
+
+type Email {
+  id: ID! @unique
+  from: String!
+  to: String!
+  subject: String!
+  body: String!
+  status: Status!
+  send_error: String
+  html: Boolean! @default(value:"false")
+}
+
+type Online {
+  id: ID! @unique
+  titleEn: String!
+  titleFr: String!
+  descriptionEn: String!
+  descriptionFr: String!
+  viewed: Boolean! @default(value:"false")
 }
