@@ -1,6 +1,6 @@
 # Notification Service
 
-** Based on [Micro Service Template](https://github.com/gctools-outilsgc/micro_service_template). README will be updated as project develops further. **
+**Based on [Micro Service Template](https://github.com/gctools-outilsgc/micro_service_template). README will be updated as project develops further.**
 
 ## Installation & Configuration
 
