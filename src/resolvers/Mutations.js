@@ -1,15 +1,36 @@
 const {copyValueToObjectIfDefined, propertyExists} = require("./helper/objectHelper");
 const { UserInputError } = require("apollo-server");
 
+async function createNotification(_, args, context, info){
 
-// Mutation functions get listed below
+  if (args.email == undefined && args.online == undefined){
+    throw new Error("A notification must be created with either Email or Online information")
+  }
+
+  var createNotificationData = {
+    gcID: args.gcID,
+    appID: args.appID,
+    actionLink: copyValueToObjectIfDefined(args.actionLink),
+    actionLevel: args.actionLevel
+  };
+
+  if(args.online !== undefined){
+    createNotificationData.online = {
+      create: {
+        titleEn: args.online.titleEn,
+        titleFr: args.online.titleFr,
+        descriptionEn: args.online.descriptionEn,
+        descriptionFr: args.online.descriptionFr
+      }
+    }
+  }
 
 
-
-
-
-// Export the functions below to be included through client facing graphQL interface
+  return await context.prisma.mutation.createNotification({
+       data: createNotificationData,
+       }, info);
+}
 
 module.exports = {
-
+  createNotification
 };
