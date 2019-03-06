@@ -4,11 +4,12 @@
 directive @isAuthenticated on OBJECT | FIELD_DEFINITION
 
 type Query{
-    notifications(gcID: String!, appID: String, actionLevel: String, skip: Int, first: Int): [Notification!]!
+    notifications(gcID: String!, appID: String, actionLevel: String, skip: Int, first: Int): [Notification!]! #@isAuthenticated
 }
 
 type Mutation{
-    createNotification(gcID: String!, appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification
+    createNotification(gcID: String!, appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification! #@isAuthenticated
+    updateNotification(id: ID!, online: UpdateOnlineInput): Notification! #@isAuthenticated
 }
 
 enum actionLevel{
@@ -28,7 +29,7 @@ type Notification{
   appID: String!
   actionLink: String
   actionLevel: actionLevel!
-  email: Email
+  email: Email # @isAppCreatorOwner TODO: Make isAppCreatorOwner directive
   online: Online
   whoDunIt: whoDunIt
 }
@@ -81,7 +82,7 @@ input UpdateOnlineInput{
 }
 
 input whoDunItInput{
-  gcID: String!
+  gcID: String
   teamID: String
   organizationID: String
 }

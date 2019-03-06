@@ -70,10 +70,47 @@ async function createNotification(_, args, context, info){
   }
 
   return await context.prisma.mutation.createNotification({
-       data: createNotificationData,
-       }, info);
+    data: createNotificationData,
+  }, info);
+}
+
+
+
+async function updateNotification(_, args, context, info){
+
+  const notification = await context.prisma.query.notification(
+    {
+      where:{
+        id: args.id
+      }
+    }
+  );
+
+  if(notification == null | undefined) {
+    throw new UserInputError('Could not find notification with id: ' + args.id);
+  }
+
+  var updateOnline = {
+    online: {
+      update: {
+        titleEn: copyValueToObjectIfDefined(args.online.titleEn),
+        titleFr: copyValueToObjectIfDefined(args.online.titleFr),
+        descriptionEn: copyValueToObjectIfDefined(args.online.descriptionEn),
+        descriptionFr: copyValueToObjectIfDefined(args.online.descriptionFr),
+        viewed: copyValueToObjectIfDefined(args.online.viewed)
+      }
+    }
+  };
+
+  return await context.prisma.mutation.updateNotification({
+    where: {
+      id: args.id
+    },
+    data: updateOnline,
+  }, info);
 }
 
 module.exports = {
-  createNotification
+  createNotification,
+  updateNotification
 };
