@@ -7,7 +7,10 @@ function notifications(_, args, context, info) {
       where:{
         gcID: args.gcID,
         appID: copyValueToObjectIfDefined(args.appID),
-        actionLevel:  copyValueToObjectIfDefined(args.actionLevel)
+        actionLevel:  copyValueToObjectIfDefined(args.actionLevel),
+        online: {
+          viewed: copyValueToObjectIfDefined(args.viewed)
+        },
       },
       skip: copyValueToObjectIfDefined(args.skip),
       first: copyValueToObjectIfDefined(args.first),

@@ -4,7 +4,7 @@
 directive @isAuthenticated on OBJECT | FIELD_DEFINITION
 
 type Query{
-    notifications(gcID: String!, appID: String, actionLevel: String, skip: Int, first: Int): [Notification!]! #@isAuthenticated
+    notifications(gcID: String!, appID: String, actionLevel: String, viewed: Boolean, skip: Int, first: Int): [Notification!]! #@isAuthenticated
 }
 
 type Mutation{
