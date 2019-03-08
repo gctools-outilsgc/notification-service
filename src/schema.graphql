@@ -4,38 +4,37 @@
 directive @isAuthenticated on OBJECT | FIELD_DEFINITION
 
 type Query{
-    notifications(gcID: String!, appId: String, viewed: Boolean, skip: Int, first: Int): [Notification!]!
+    notifications(gcID: String!, appID: String, actionLevel: String, skip: Int, first: Int): [Notification!]! #@isAuthenticated
 }
 
 type Mutation{
-    createNotification(gcID:String!, email: EmailInput, online: OnlineInput): Notification
-    updateNotification(id: ID!, online: UpdateOnlineInput): Notification
-
+    createNotification(gcID: String!, appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification! #@isAuthenticated
+    updateNotification(id: ID!, online: UpdateOnlineInput): Notification! #@isAuthenticated
 }
 
-enum actionLevel {
+enum actionLevel{
   NoUserAction
   Featured
   UserActionRequired
 }
 
-enum Status {
+enum Status{
   Sent
   Queued
 }
 
-type Notification {
+type Notification{
   id: ID!
   gcID: String!
   appID: String!
   actionLink: String
   actionLevel: actionLevel!
-  email: Email
+  email: Email # @isAppCreatorOwner TODO: Make isAppCreatorOwner directive
   online: Online
   whoDunIt: whoDunIt
 }
 
-type whoDunIt {
+type whoDunIt{
   gcID: String!
   teamID: String
   organizationID: String
@@ -44,12 +43,12 @@ type whoDunIt {
 
 type Email{
     from: String!
-    to: [String!]!
+    to: String!
     subject: String!
     body: String!
     status: Status!
-    send_error: String
-    html: Boolean! 
+    sendError: String
+    html: Boolean!
 }
 
 type Online{
@@ -61,7 +60,7 @@ type Online{
 }
 input EmailInput{
     from: String!
-    to: [String!]!
+    to: String!
     subject: String!
     body: String!
     html: Boolean
@@ -80,4 +79,10 @@ input UpdateOnlineInput{
     descriptionEn: String
     descriptionFr: String
     viewed: Boolean
+}
+
+input whoDunItInput{
+  gcID: String
+  teamID: String
+  organizationID: String
 }

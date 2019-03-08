@@ -38,7 +38,7 @@ type Email {
   subject: String!
   body: String!
   status: Status!
-  send_error: String
+  sendError: String
   html: Boolean! @default(value:"false")
 }
 
