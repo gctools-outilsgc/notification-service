@@ -31,7 +31,7 @@ type Email {
   subject: String!
   body: String!
   status: Status!
-  send_error: String
+  sendError: String
   html: Boolean!
 }
 
@@ -47,7 +47,7 @@ input EmailCreateInput {
   subject: String!
   body: String!
   status: Status!
-  send_error: String
+  sendError: String
   html: Boolean
 }
 
@@ -74,8 +74,8 @@ enum EmailOrderByInput {
   body_DESC
   status_ASC
   status_DESC
-  send_error_ASC
-  send_error_DESC
+  sendError_ASC
+  sendError_DESC
   html_ASC
   html_DESC
   createdAt_ASC
@@ -91,7 +91,7 @@ type EmailPreviousValues {
   subject: String!
   body: String!
   status: Status!
-  send_error: String
+  sendError: String
   html: Boolean!
 }
 
@@ -119,7 +119,7 @@ input EmailUpdateDataInput {
   subject: String
   body: String
   status: Status
-  send_error: String
+  sendError: String
   html: Boolean
 }
 
@@ -129,7 +129,7 @@ input EmailUpdateInput {
   subject: String
   body: String
   status: Status
-  send_error: String
+  sendError: String
   html: Boolean
 }
 
@@ -139,7 +139,7 @@ input EmailUpdateManyMutationInput {
   subject: String
   body: String
   status: Status
-  send_error: String
+  sendError: String
   html: Boolean
 }
 
@@ -232,20 +232,20 @@ input EmailWhereInput {
   status_not: Status
   status_in: [Status!]
   status_not_in: [Status!]
-  send_error: String
-  send_error_not: String
-  send_error_in: [String!]
-  send_error_not_in: [String!]
-  send_error_lt: String
-  send_error_lte: String
-  send_error_gt: String
-  send_error_gte: String
-  send_error_contains: String
-  send_error_not_contains: String
-  send_error_starts_with: String
-  send_error_not_starts_with: String
-  send_error_ends_with: String
-  send_error_not_ends_with: String
+  sendError: String
+  sendError_not: String
+  sendError_in: [String!]
+  sendError_not_in: [String!]
+  sendError_lt: String
+  sendError_lte: String
+  sendError_gt: String
+  sendError_gte: String
+  sendError_contains: String
+  sendError_not_contains: String
+  sendError_starts_with: String
+  sendError_not_starts_with: String
+  sendError_ends_with: String
+  sendError_not_ends_with: String
   html: Boolean
   html_not: Boolean
   AND: [EmailWhereInput!]

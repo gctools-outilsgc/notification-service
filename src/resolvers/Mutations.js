@@ -4,7 +4,7 @@ const { UserInputError } = require("apollo-server");
 async function createNotification(_, args, context, info){
 
   if (!propertyExists(args, "online") && !propertyExists(args, "email")){
-    throw new Error("A notification must be created with either Email or Online information")
+    throw new Error("A notification must be created with either Email or Online information");
   }
 
   var createNotificationData = {
@@ -23,7 +23,7 @@ async function createNotification(_, args, context, info){
         descriptionEn: args.online.descriptionEn,
         descriptionFr: args.online.descriptionFr
       }
-    }
+    };
   }
 
   //create email notification
@@ -34,12 +34,12 @@ async function createNotification(_, args, context, info){
       subject: args.email.subject,
       body: args.email.body,
       html: args.email.html
-    }
+    };
 
-    const send_error = false; // TODO: Mail function that returns status of email and error if email can not be sent.
+    const sendError = false; // TODO: Mail function that returns status of email and error if email can not be sent.
 
-    if(send_error !== false){
-      createNotificationData.email.send_error = send_error;
+    if(sendError !== false){
+      createNotificationData.email.sendError = sendError;
       createNotificationData.email.status = "Queued";
     } else {
       createNotificationData.email.status = "Sent";
@@ -53,9 +53,9 @@ async function createNotification(_, args, context, info){
         body: createNotificationData.email.body,
         html: createNotificationData.email.html,
         status: createNotificationData.email.status,
-        send_error: createNotificationData.email.send_error
+        sendError: createNotificationData.email.sendError
       }
-    }
+    };
   }
 
   //who caused the notification
@@ -66,7 +66,7 @@ async function createNotification(_, args, context, info){
         teamID: args.whoDunIt.teamID,
         organizationID: args.whoDunIt.organizationID
       }
-    }
+    };
   }
 
   return await context.prisma.mutation.createNotification({
@@ -86,8 +86,8 @@ async function updateNotification(_, args, context, info){
     }
   );
 
-  if(notification == null | undefined) {
-    throw new UserInputError('Could not find notification with id: ' + args.id);
+  if(notification === null || typeof notification == "undefined") {
+    throw new UserInputError("Could not find notification with id: " + args.id);
   }
 
   var updateOnline = {
