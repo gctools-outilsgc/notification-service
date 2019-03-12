@@ -1,5 +1,6 @@
 const {copyValueToObjectIfDefined, propertyExists} = require("./helper/objectHelper");
 const { UserInputError } = require("apollo-server");
+const emailGenerator = require('./emailGenerator.js');
 
 async function createNotification(_, args, context, info){
 
@@ -36,10 +37,10 @@ async function createNotification(_, args, context, info){
       html: args.email.html
     };
 
-    const sendError = false; // TODO: Mail function that returns status of email and error if email can not be sent.
+    var send_error = await emailGenerator.sendEmail(args);
 
-    if(sendError !== false){
-      createNotificationData.email.sendError = sendError;
+    if(send_error !== false){
+      createNotificationData.email.send_error = send_error;
       createNotificationData.email.status = "Queued";
     } else {
       createNotificationData.email.status = "Sent";
@@ -56,7 +57,7 @@ async function createNotification(_, args, context, info){
         sendError: createNotificationData.email.sendError
       }
     };
-  }
+  } 
 
   //who caused the notification
   if(propertyExists(args, "whoDunIt")){

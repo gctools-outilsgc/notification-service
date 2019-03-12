@@ -3,12 +3,13 @@ var config = require('../config')
 
 module.exports = {
   async sendEmail (user) {
+    
     var mailer = nodemailer.createTransport({
-      service: 'gmail',
-      host: 'smtp.gmail.com',
+      service: config.email.service,
+      host: config.email.host,
       auth: {
-        user: "stephtesting4104@gmail.com",
-        pass: "!Password1"
+        user: config.email.email,
+        pass: config.email.password
       }
     })
 
@@ -18,16 +19,13 @@ module.exports = {
       subject: user.email.subject,
       html: user.email.body
     }
-       // return mailer.sendMail(mailOptions)
-       mailer.sendMail(mailOptions, function (err) {
-         console.log('err '+err)
-        if (err) {
-          console.log("err")
-          return err
-        } else {
-          console.log("send")
-          return 'Mail sent to: ' + email
-        }
+
+    await  mailer.sendMail(mailOptions).then(function(info){
+        result =  true  
+    }).catch(function(err){
+        console.log('Email not send! Error: '+err);
+        result = false
     });
+  return result
   }
 }
