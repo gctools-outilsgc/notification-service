@@ -14,7 +14,7 @@ const mqPass = process.env.MQ_PASS;
 const userMail = process.env.userMail;
 const passMail = process.env.passMail;
 const hostMail = process.env.hostMail;
-const serviceMail = process.env.serviceMail;
+const portMail = process.env.portMail;
 
 const development = {
  app: {
@@ -40,7 +40,7 @@ const development = {
    email:userMail,
    password:passMail,
    host:hostMail,
-   service:serviceMail
+   port:portMail
  }
 };
 
@@ -64,6 +64,12 @@ openId:{
   id:clientId,
   secret:clientSecret
 },
+email:{
+  email:userMail,
+  password:passMail,
+  host:hostMail,
+  port:portMail
+}
 };
 
 const config = {

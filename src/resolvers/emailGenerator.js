@@ -1,31 +1,30 @@
-const nodemailer = require('nodemailer')
-var config = require('../config')
+const nodemailer = require("nodemailer");
+var config = require("../config");
 
 module.exports = {
   async sendEmail (user) {
     
     var mailer = nodemailer.createTransport({
-      service: config.email.service,
       host: config.email.host,
+      port: config.email.port,
       auth: {
         user: config.email.email,
         pass: config.email.password
       }
-    })
+    });
 
     var mailOptions = {
       to: user.email.to,
       from: user.email.from,
       subject: user.email.subject,
       html: user.email.body
-    }
+    };
 
-    await  mailer.sendMail(mailOptions).then(function(info){
-        result =  true  
+    return await mailer.sendMail(mailOptions).then(function(){
+        return false;  
     }).catch(function(err){
-        console.log('Email not send! Error: '+err);
-        result = false
+        console.error("[Email Generator Error] - "+ err);
+        return true;
     });
-  return result
   }
-}
+};
