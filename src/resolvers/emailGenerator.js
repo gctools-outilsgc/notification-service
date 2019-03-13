@@ -23,6 +23,7 @@ module.exports = {
     return await mailer.sendMail(mailOptions).then(function(){
         return false;  
     }).catch(function(err){
+        // eslint-disable-next-line no-console
         console.error("[Email Generator Error] - "+ err);
         return true;
     });
