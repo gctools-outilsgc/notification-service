@@ -25,7 +25,7 @@ To configure this application there are 2 files that require modification.
 * `userMail` = Email address of the email account you use.
 * `passMail` = Password of the email account.
 * `hostMail` = Host of the email account (Ex: smtp.gmail.com).
-* `serviceMail` = Service name of the email account (Ex: gmail).
+* `portMail` = Port of the SMTP server to connect to.
 
 ### Development
 
