@@ -6,6 +6,10 @@ const ctx = {
     prisma: getPrismaTestInstance()
 };
 
+afterAll(async () => {
+  await ctx.prisma.mutation.deleteManyNotifications();
+});
+
 
 test("create notification with mandatory fields", async() => {
   const args = {
