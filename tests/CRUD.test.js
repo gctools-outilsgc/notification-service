@@ -1,22 +1,13 @@
 const fs = require("fs");
-
-const { graphql } = require("graphql");
-
 const mutations = require("../src/resolvers/Mutations");
 const query = require("../src/resolvers/Query");
-
-const { getContext, cleanUp, setPrisma } = require("./init/prismaTestInstance");
+const { cleanUp, setPrisma } = require("./init/prismaTestInstance");
 const parent = {};
 
-const typeDefs = fs.readFileSync("src/schema.graphql", "utf8");
-
-
-var ctx = {};
-
-
-
 beforeAll(async (done) => {
-    ctx = await getContext();
+  ctx ={
+    prisma:await setPrisma()
+  } 
     done();
 });
 
@@ -46,7 +37,7 @@ test("create notification", async() => {
     }
   };
 
-  const info = "{ id, gcID, appID, actionLevel, email { from, subject, body, status }, online { titleEn, titleFr, descriptionEn, descriptionFr, viewed } }";
+  const info = "{ gcID, appID, actionLevel, email { from, subject, body, status }, online { titleEn, titleFr, descriptionEn, descriptionFr, viewed } }";
 
   expect(
     await mutations.createNotification(parent, args, ctx, info),
@@ -55,7 +46,7 @@ test("create notification", async() => {
 });
 
 test("Modify Notification", async() => {
-    var notificationID = await query.notifications(parent, {gcID:"56gdjf743hjdn"}, ctx, "{id}");
+    var notificationID = await query.notifications(parent, {gcID:"sde432sde"}, ctx, "{id}");
     var args = {
         id: notificationID[0].id,
         online: {
@@ -67,7 +58,7 @@ test("Modify Notification", async() => {
         }
     };
 
-    const info = "{ id, online{titleEn,titleFr,descriptionEn,descriptionFr,viewed}}";
+    const info = "{ online{titleEn,titleFr,descriptionEn,descriptionFr,viewed}}";
 
     expect(
         await mutations.updateNotification(parent, args, ctx, info)
@@ -76,7 +67,7 @@ test("Modify Notification", async() => {
 });
 
 test("Query all notifications", async() => {
-    const info = "{id, gcID, appID, actionLevel, actionLink, email{ from, to, subject, body, status, html, sendError}, online{ titleEn, titleFr, descriptionEn, descriptionFr, viewed}, whoDunIt{ gcID, teamID, organizationID}}";
+    const info = "{gcID, appID, actionLevel, actionLink, email{ from, to, subject, body, status, html, sendError}, online{ titleEn, titleFr, descriptionEn, descriptionFr, viewed}, whoDunIt{ gcID, teamID, organizationID}}";
     
     expect(
       await query.notifications(parent, {}, ctx, info),

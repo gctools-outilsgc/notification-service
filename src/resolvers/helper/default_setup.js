@@ -1,23 +1,12 @@
-const config = require("../../config");
-const { Prisma } = require("prisma-binding");
-const mutations = require("../Mutations");
-const querys = require("../Query");
-
-const ctx = {
+const config = require("../../config"); const { Prisma } = require("prisma-binding"); const mutations = 
+require("../Mutations"); const querys = require("../Query"); const ctx = {
     prisma: new Prisma({
         typeDefs: "./src/generated/prisma.graphql",
         endpoint: "http://localhost:4466",
-        //debug: config.prisma.debug,
-    }) 
-}; 
-
-var defaultData = {};
-
-
-async function createDefaultNotification() {
-
+    })
+};
+var defaultData = {}; async function createDefaultNotification() {
     // Create default notification
-
     const args = {
         gcID: "234235fdg856bdgf",
         appID: "958742",
@@ -35,16 +24,18 @@ async function createDefaultNotification() {
           descriptionEn: "Default Test online description English",
           descriptionFr: "Test description par defaut en ligne en français",
           viewed: false
+        },
+        whoDunIt:{
+          gcID: "1a25sd487gd9",
+          teamID: "12698",
+          organizationID: "325849"
         }
       };
     
-
     let notif = await mutations.createNotification({}, args, ctx, "{id}");
     
     return notif;
-            
 }
-
 async function getDefaults(){
     var notif = await querys.notifications({},{gcID:"234235fdg856bdgf", appID:"958742"}, ctx, "{id}");
     if (notif.length < 1 ){
@@ -52,10 +43,8 @@ async function getDefaults(){
     } else {
          defaultData.notif = notif[0];
     }   
-
     return defaultData;
 }
-
 module.exports = {
     getDefaults
 };

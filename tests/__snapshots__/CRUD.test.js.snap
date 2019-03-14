@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modify Notification 1`] = `
+Object {
+  "online": Object {
+    "descriptionEn": "My description edited",
+    "descriptionFr": "Ma description modifié",
+    "titleEn": "My test edited",
+    "titleFr": "Mon test mondifié",
+    "viewed": true,
+  },
+}
+`;
+
+exports[`Query all notifications 1`] = `
+Array [
+  Object {
+    "actionLevel": "Featured",
+    "actionLink": null,
+    "appID": "154879",
+    "email": Object {
+      "body": "Test email body",
+      "from": "from@test.ca",
+      "html": false,
+      "sendError": null,
+      "status": "Sent",
+      "subject": "Test email subject",
+      "to": "to@test.ca",
+    },
+    "gcID": "sde432sde",
+    "online": Object {
+      "descriptionEn": "My description edited",
+      "descriptionFr": "Ma description modifié",
+      "titleEn": "My test edited",
+      "titleFr": "Mon test mondifié",
+      "viewed": true,
+    },
+    "whoDunIt": null,
+  },
+]
+`;
+
+exports[`create notification 1`] = `
+Object {
+  "actionLevel": "Featured",
+  "appID": "154879",
+  "email": Object {
+    "body": "Test email body",
+    "from": "from@test.ca",
+    "status": "Sent",
+    "subject": "Test email subject",
+  },
+  "gcID": "sde432sde",
+  "online": Object {
+    "descriptionEn": "Test online description English",
+    "descriptionFr": "Test description français en ligne",
+    "titleEn": "Test online title English",
+    "titleFr": "Test titre français en ligne",
+    "viewed": false,
+  },
+}
+`;
