@@ -1,6 +1,5 @@
 const query = require("../src/resolvers/Query");
-const { getContext, cleanUp, setPrisma } = require("./init/prismaTestInstance");
-
+const { getContext, cleanUp } = require("./init/prismaTestInstance");
 const parent = {};
 
 beforeAll(async (done) => {
@@ -21,4 +20,3 @@ test("Query all notifications", async() => {
   ).toMatchSnapshot();
 
 });
-

@@ -12,7 +12,6 @@ const ctx = {
 
 var defaultData = {};
 
-
 async function createDefaultNotification() {
 
     // Create default notification
@@ -44,8 +43,7 @@ async function createDefaultNotification() {
     
     let notif = await mutations.createNotification({}, args, ctx, "{id}");
     
-    return notif;
-            
+    return notif;   
 }
 
 async function getDefaults(){
