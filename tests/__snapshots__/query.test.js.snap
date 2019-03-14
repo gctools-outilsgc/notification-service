@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Query all notifications 1`] = `
+Array [
+  Object {
+    "actionLevel": "Featured",
+    "actionLink": null,
+    "appID": "958742",
+    "email": Object {
+      "body": "Testing default email body",
+      "from": "fromDefault@test.ca",
+      "html": false,
+      "sendError": null,
+      "status": "Sent",
+      "subject": "Test default subject",
+      "to": "toDefault@test.ca",
+    },
+    "gcID": "234235fdg856bdgf",
+    "id": "cjt8owtsg00de0788srvp6ky4",
+    "online": Object {
+      "descriptionEn": "Default Test online description English",
+      "descriptionFr": "Test description par defaut en ligne en français",
+      "titleEn": "Default test title English",
+      "titleFr": "Test titre par defaut en français",
+      "viewed": false,
+    },
+    "whoDunIt": Object {
+      "gcID": "1a25sd487gd9",
+      "organizationID": "325849",
+      "teamID": "12698",
+    },
+  },
+]
+`;

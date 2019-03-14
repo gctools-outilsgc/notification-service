@@ -1,10 +1,17 @@
 const query = require("../src/resolvers/Query");
-const { getPrismaTestInstance } = require("./init/prismaTestInstance");
+const { getContext, cleanUp, setPrisma } = require("./init/prismaTestInstance");
 
 const parent = {};
-const ctx = {
-    prisma: getPrismaTestInstance()
-};
+
+beforeAll(async (done) => {
+  ctx = await getContext();
+  done();
+});
+
+afterAll(async (done) => {
+  await cleanUp(ctx);
+  done();
+});
 
 test("Query all notifications", async() => {
   const info = "{id, gcID, appID, actionLevel, actionLink, email{ from, to, subject, body, status, html, sendError}, online{ titleEn, titleFr, descriptionEn, descriptionFr, viewed}, whoDunIt{ gcID, teamID, organizationID}}";
