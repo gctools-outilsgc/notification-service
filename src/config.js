@@ -10,6 +10,12 @@ const clientSecret = process.env.client_secret;
 const mqUser = process.env.MQ_USER;
 const mqPass = process.env.MQ_PASS;
 
+// Email username and password
+const userMail = process.env.userMail;
+const passMail = process.env.passMail;
+const hostMail = process.env.hostMail;
+const portMail = process.env.portMail;
+
 const development = {
  app: {
    port: 4000,
@@ -30,6 +36,12 @@ const development = {
    id:clientId,
    secret:clientSecret
  },
+ email:{
+   email:userMail,
+   password:passMail,
+   host:hostMail,
+   port:portMail
+ }
 };
 
 const production = {
@@ -52,6 +64,12 @@ openId:{
   id:clientId,
   secret:clientSecret
 },
+email:{
+  email:userMail,
+  password:passMail,
+  host:hostMail,
+  port:portMail
+}
 };
 
 const config = {
