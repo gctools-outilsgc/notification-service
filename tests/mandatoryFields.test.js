@@ -1,15 +1,18 @@
 const mutations = require("../src/resolvers/Mutations");
-const { getPrismaTestInstance } = require("./init/prismaTestInstance");
-
+const { cleanUp, setPrisma } = require("./init/prismaTestInstance");
 const parent = {};
-const ctx = {
-    prisma: getPrismaTestInstance()
-};
 
-afterAll(async () => {
-  await ctx.prisma.mutation.deleteManyNotifications();
+beforeAll(async (done) => {
+  ctx ={
+    prisma:await setPrisma()
+  } 
+  done();
 });
 
+afterAll(async (done) => {
+  await cleanUp(ctx);
+  done();
+});
 
 test("create notification with mandatory fields", async() => {
   const args = {

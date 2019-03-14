@@ -13,7 +13,7 @@ afterAll(async (done) => {
 });
 
 test("Query all notifications", async() => {
-  const info = "{id, gcID, appID, actionLevel, actionLink, email{ from, to, subject, body, status, html, sendError}, online{ titleEn, titleFr, descriptionEn, descriptionFr, viewed}, whoDunIt{ gcID, teamID, organizationID}}";
+  const info = "{gcID, appID, actionLevel, actionLink, email{ from, to, subject, body, status, html, sendError}, online{ titleEn, titleFr, descriptionEn, descriptionFr, viewed}, whoDunIt{ gcID, teamID, organizationID}}";
   
   expect(
     await query.notifications(parent, {}, ctx, info),
