@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create notification with mandatory fields 1`] = `
+Object {
+  "actionLevel": "Featured",
+  "appID": "079685",
+  "email": Object {
+    "body": "Testing mandatory fields email body",
+    "from": "from.email@test.ca",
+    "status": "Sent",
+    "subject": "Test mandatory fields email subject",
+  },
+  "gcID": "56gdjf743hjdn",
+  "online": Object {
+    "descriptionEn": "Test mandatory field online description English",
+    "descriptionFr": "Test mandatory field online description French",
+    "titleEn": "Test mandatory field online title English",
+    "titleFr": "Test mandatory field online title French",
+    "viewed": false,
+  },
+}
+`;
+
+exports[`fail notification creation based on missing actionLevel 1`] = `"Variable \\"$_v0_data\\" got invalid value { gcID: \\"56gdjf743hjdn\\", appID: \\"079685\\", actionLink: undefined, actionLevel: undefined, online: { create: { titleEn: \\"Test mandatory field online title English\\", titleFr: \\"Test mandatory field online title French\\", descriptionEn: \\"Test mandatory field online description English\\", descriptionFr: \\"Test mandatory field online description French\\" } }, email: { create: { from: \\"from.email@test.ca\\", to: \\"to.email@test.ca\\", subject: \\"Test mandatory fields email subject\\", body: \\"Testing mandatory fields email body\\", html: undefined, status: \\"Sent\\", sendError: undefined } } }; Field value.actionLevel of required type actionLevel! was not provided."`;
+
+exports[`fail notification creation based on missing appID 1`] = `"Variable \\"$_v0_data\\" got invalid value { gcID: \\"56gdjf743hjdn\\", appID: undefined, actionLink: undefined, actionLevel: \\"Featured\\", online: { create: { titleEn: \\"Test mandatory field online title English\\", titleFr: \\"Test mandatory field online title French\\", descriptionEn: \\"Test mandatory field online description English\\", descriptionFr: \\"Test mandatory field online description French\\" } }, email: { create: { from: \\"from.email@test.ca\\", to: \\"to.email@test.ca\\", subject: \\"Test mandatory fields email subject\\", body: \\"Testing mandatory fields email body\\", html: undefined, status: \\"Sent\\", sendError: undefined } } }; Field value.appID of required type String! was not provided."`;
+
+exports[`fail notification creation based on missing email and online fields 1`] = `"A notification must be created with either Email or Online information"`;
+
+exports[`fail notification creation based on missing gcID 1`] = `"Variable \\"$_v0_data\\" got invalid value { gcID: undefined, appID: \\"079685\\", actionLink: undefined, actionLevel: \\"Featured\\", online: { create: { titleEn: \\"Test mandatory field online title English\\", titleFr: \\"Test mandatory field online title French\\", descriptionEn: \\"Test mandatory field online description English\\", descriptionFr: \\"Test mandatory field online description French\\" } }, email: { create: { from: \\"from.email@test.ca\\", to: \\"to.email@test.ca\\", subject: \\"Test mandatory fields email subject\\", body: \\"Testing mandatory fields email body\\", html: undefined, status: \\"Sent\\", sendError: undefined } } }; Field value.gcID of required type String! was not provided."`;

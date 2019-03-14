@@ -22,6 +22,10 @@ To configure this application there are 2 files that require modification.
 * `MQ_PASS` = Password for RabbitMQ instance
 * `CLIENT_ID` = The client_ID from the client created in Concierge for this micro service
 * `CLIENT_SECRET` = The client secret for the Client ID listed above.
+* `userMail` = Email address of the email account you use.
+* `passMail` = Password of the email account.
+* `hostMail` = Host of the email account (Ex: smtp.gmail.com).
+* `portMail` = Port of the SMTP server to connect to.
 
 ### Development
 
