@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const { Prisma } = require("prisma-binding");
 const { getDefaults } = require("../../src/resolvers/helper/default_setup");
 
@@ -9,7 +8,6 @@ function setPrisma(){
         endpoint: "http://localhost:4466",
       });
 }
-
 
 async function getContext(){
   var ctx = {};
@@ -32,16 +30,3 @@ module.exports = {
   cleanUp,
   setPrisma
 };
-=======
-const { Prisma } = require("prisma-binding");
-
-const getPrismaTestInstance = () => {
-  return new Prisma({
-    typeDefs: "src/generated/prisma.graphql",
-    endpoint: "http://localhost:4466",
-  });
-};
-module.exports = {
-  getPrismaTestInstance,
-};
->>>>>>> origin/master
