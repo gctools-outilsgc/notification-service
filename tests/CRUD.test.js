@@ -3,13 +3,9 @@ const mutations = require("../src/resolvers/Mutations");
 const query = require("../src/resolvers/Query");
 const { cleanUp, setPrisma } = require("./init/prismaTestInstance");
 const parent = {};
-
-beforeAll(async (done) => {
-  ctx ={
-    prisma:await setPrisma()
-  } 
-    done();
-});
+const ctx = {
+  prisma: setPrisma()
+};
 
 afterAll(async (done) => {
     await cleanUp(ctx);
