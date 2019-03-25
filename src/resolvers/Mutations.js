@@ -39,8 +39,8 @@ async function createNotification(_, args, context, info){
 
     var sendError = await emailGenerator.sendEmail(args);
 
-    if(sendError !== false){
-      createNotificationData.email.sendError = sendError;
+    if(sendError.status !== false){
+      createNotificationData.email.sendError = sendError.msg;
       createNotificationData.email.status = "Queued";
     } else {
       createNotificationData.email.status = "Sent";
@@ -57,7 +57,7 @@ async function createNotification(_, args, context, info){
         sendError: createNotificationData.email.sendError
       }
     };
-  } 
+  }
 
   //who caused the notification
   if(propertyExists(args, "whoDunIt")){
