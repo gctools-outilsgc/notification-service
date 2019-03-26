@@ -20,8 +20,8 @@ To configure this application there are 2 files that require modification.
     This file contains the secrets required for the application and can be set eitehr through ENV variables or through this file.
 * `MQ_USER` = Username for RabbitMQ instance set in `./src/config.js`
 * `MQ_PASS` = Password for RabbitMQ instance
-* `CLIENT_ID` = The client_ID from the client created in Concierge for this micro service
-* `CLIENT_SECRET` = The client secret for the Client ID listed above.
+* `client_id` = The client_ID from the client created in Concierge for this micro service
+* `client_secret` = The client secret for the Client ID listed above.
 * `userMail` = Email address of the email account you use.
 * `passMail` = Password of the email account.
 * `hostMail` = Host of the email account (Ex: smtp.gmail.com).
