@@ -3,7 +3,16 @@ var config = require("../config");
 
 module.exports = {
   async sendEmail (user) {
-    
+
+    //catch if no email configuration has been entered
+    if(!config.email.host || !config.email.port || !config.email.email || !config.email.password){
+      var errorStatus = {
+        status: true,
+        msg: "No email configuration"
+      };
+      return errorStatus;
+    }
+
     var mailer = nodemailer.createTransport({
       host: config.email.host,
       port: config.email.port,
@@ -21,11 +30,18 @@ module.exports = {
     };
 
     return await mailer.sendMail(mailOptions).then(function(){
-        return false;  
+        var errorStatus = {
+          status: false
+        };
+        return errorStatus;
     }).catch(function(err){
         // eslint-disable-next-line no-console
-        console.error("[Email Generator Error] - "+ err);
-        return true;
+        console.log("[Email Generator Error] - "+ err);
+        var errorStatus = {
+          status: true,
+          msg: err
+        };
+        return errorStatus;
     });
   }
 };
