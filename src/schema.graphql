@@ -25,6 +25,8 @@ enum Status{
 
 type Notification{
   id: ID!
+  generatedOn: String
+  modifiedOn: String
   gcID: String!
   appID: String!
   actionLink: String
