@@ -295,6 +295,8 @@ interface Node {
 
 type Notification {
   id: ID!
+  generatedOn: String!
+  modifiedOn: String
   gcID: String!
   appID: String!
   actionLink: String
@@ -311,6 +313,8 @@ type NotificationConnection {
 }
 
 input NotificationCreateInput {
+  generatedOn: String!
+  modifiedOn: String
   gcID: String!
   appID: String!
   actionLink: String
@@ -326,6 +330,8 @@ input NotificationCreateManyWithoutWhoDunItInput {
 }
 
 input NotificationCreateWithoutWhoDunItInput {
+  generatedOn: String!
+  modifiedOn: String
   gcID: String!
   appID: String!
   actionLink: String
@@ -342,6 +348,10 @@ type NotificationEdge {
 enum NotificationOrderByInput {
   id_ASC
   id_DESC
+  generatedOn_ASC
+  generatedOn_DESC
+  modifiedOn_ASC
+  modifiedOn_DESC
   gcID_ASC
   gcID_DESC
   appID_ASC
@@ -358,6 +368,8 @@ enum NotificationOrderByInput {
 
 type NotificationPreviousValues {
   id: ID!
+  generatedOn: String!
+  modifiedOn: String
   gcID: String!
   appID: String!
   actionLink: String
@@ -383,6 +395,8 @@ input NotificationSubscriptionWhereInput {
 }
 
 input NotificationUpdateInput {
+  generatedOn: String
+  modifiedOn: String
   gcID: String
   appID: String
   actionLink: String
@@ -393,6 +407,8 @@ input NotificationUpdateInput {
 }
 
 input NotificationUpdateManyMutationInput {
+  generatedOn: String
+  modifiedOn: String
   gcID: String
   appID: String
   actionLink: String
@@ -414,6 +430,34 @@ input NotificationWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  generatedOn: String
+  generatedOn_not: String
+  generatedOn_in: [String!]
+  generatedOn_not_in: [String!]
+  generatedOn_lt: String
+  generatedOn_lte: String
+  generatedOn_gt: String
+  generatedOn_gte: String
+  generatedOn_contains: String
+  generatedOn_not_contains: String
+  generatedOn_starts_with: String
+  generatedOn_not_starts_with: String
+  generatedOn_ends_with: String
+  generatedOn_not_ends_with: String
+  modifiedOn: String
+  modifiedOn_not: String
+  modifiedOn_in: [String!]
+  modifiedOn_not_in: [String!]
+  modifiedOn_lt: String
+  modifiedOn_lte: String
+  modifiedOn_gt: String
+  modifiedOn_gte: String
+  modifiedOn_contains: String
+  modifiedOn_not_contains: String
+  modifiedOn_starts_with: String
+  modifiedOn_not_starts_with: String
+  modifiedOn_ends_with: String
+  modifiedOn_not_ends_with: String
   gcID: String
   gcID_not: String
   gcID_in: [String!]

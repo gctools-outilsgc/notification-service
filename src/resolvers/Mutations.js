@@ -11,6 +11,8 @@ async function createNotification(_, args, context, info){
   var createNotificationData = {
     gcID: args.gcID,
     appID: args.appID,
+    generatedOn: await Date.now().toString(),
+    modifiedOn: null,
     actionLink: copyValueToObjectIfDefined(args.actionLink),
     actionLevel: args.actionLevel
   };
@@ -92,6 +94,7 @@ async function updateNotification(_, args, context, info){
   }
 
   var updateOnline = {
+    modifiedOn: await Date.now().toString(),
     online: {
       update: {
         titleEn: copyValueToObjectIfDefined(args.online.titleEn),
