@@ -1,7 +1,7 @@
 
 const {  AuthenticationError } = require("apollo-server");
 const { propertyExists } = require("../resolvers/helper/objectHelper");
-const { GraphQLNonNull, GraphQLList } = require("graphql");
+const { GraphQLNonNull, GraphQLList, GraphQLObjectType } = require("graphql");
 
 
 /*
@@ -25,7 +25,7 @@ async function blockValue(field){
           result = "";
       }
       
-      if (field.type.ofType instanceof GraphQLList){
+      if (field.type.ofType instanceof GraphQLList || field.type.ofType instanceof GraphQLObjectType){
         throw new AuthenticationError("Not Authorized");
       }
     }
