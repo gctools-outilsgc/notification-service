@@ -5,7 +5,7 @@ function notifications(_, args, context, info) {
   return context.prisma.query.notifications(
     {
       where:{
-        gcID: args.gcID,
+        gcID: context.token.owner.gcID,
         appID: copyValueToObjectIfDefined(args.appID),
         actionLevel:  copyValueToObjectIfDefined(args.actionLevel),
       },

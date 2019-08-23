@@ -9,7 +9,7 @@ async function createNotification(_, args, context, info){
   }
 
   var createNotificationData = {
-    gcID: args.gcID,
+    gcID: context.token.owner.gcID,
     appID: args.appID,
     generatedOn: await Date.now().toString(),
     modifiedOn: null,

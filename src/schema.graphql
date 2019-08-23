@@ -8,7 +8,7 @@ type Query{
 }
 
 type Mutation{
-    createNotification(gcID: String!, appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification! @isAuthenticated
+    createNotification(appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification! @isAuthenticated
     updateNotification(id: ID!, online: UpdateOnlineInput): Notification! @isAuthenticated
 }
 
