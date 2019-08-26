@@ -76,10 +76,6 @@ input OnlineInput{
 }
 
 input UpdateOnlineInput{
-    titleEn: String
-    titleFr: String
-    descriptionEn: String
-    descriptionFr: String
     viewed: Boolean
 }
 

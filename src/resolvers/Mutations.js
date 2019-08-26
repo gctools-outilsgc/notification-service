@@ -97,10 +97,6 @@ async function updateNotification(_, args, context, info){
     modifiedOn: await Date.now().toString(),
     online: {
       update: {
-        titleEn: copyValueToObjectIfDefined(args.online.titleEn),
-        titleFr: copyValueToObjectIfDefined(args.online.titleFr),
-        descriptionEn: copyValueToObjectIfDefined(args.online.descriptionEn),
-        descriptionFr: copyValueToObjectIfDefined(args.online.descriptionFr),
         viewed: copyValueToObjectIfDefined(args.online.viewed)
       }
     }
