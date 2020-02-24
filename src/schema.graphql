@@ -4,7 +4,7 @@
 directive @isAuthenticated on OBJECT | FIELD_DEFINITION
 
 type Query{
-    notifications(appID: String, actionLevel: String, skip: Int, first: Int): [Notification!]! @isAuthenticated
+    notifications(appID: String, actionLevel: String, viewed: Boolean skip: Int, first: Int, orderBy: OrderByInput): [Notification!]! @isAuthenticated
 }
 
 type Mutation{
@@ -21,6 +21,11 @@ enum actionLevel{
 enum Status{
   Sent
   Queued
+}
+
+enum OrderByInput {
+  generatedOn_DESC
+  generatedOn_ASC
 }
 
 type Notification{
