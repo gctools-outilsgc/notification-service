@@ -1,5 +1,7 @@
 // Handler for messages from different exchanges and keys
 const { Prisma } = require("prisma-binding");
+const { createNotification } = require("../resolvers/Mutations");
+const {GraphQLError} = require("graphql");
 const { publishMessageQueue } = require("./publisher_connector");
 const config = require("../config");
 
@@ -13,10 +15,30 @@ const context = {
 
 async function msgHandler(msg, success) {
     const messageBody = JSON.parse(msg.content.toString());
+    context.defaults = "TODO LATER";
     switch (msg.fields.routingKey){
-
-
-
+        case "profile.notification":
+            var args = {
+                gcID: messageBody.gcID,
+                appID: messageBody.appID,
+                actionLevel: messageBody.actionLevel,
+                email: messageBody.email,
+                online: messageBody.online,
+                whoDunit: messageBody.whoDunit,
+            };
+            try {
+                await createNotification(null, args, context, "{gcID, appID, actionLevel, email, online, whoDunit}");
+                success(true);
+            } catch (err) {
+                if(err instanceof GraphQLError) {
+                    console.log(err);
+                    success(true);
+                } else {
+                    console.log(err);
+                    success(false);  
+                }
+            }
+            break;
 
         // List cases here for topic keys being listened to.
         // see example folder for more details
