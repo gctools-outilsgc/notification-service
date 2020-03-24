@@ -18,14 +18,17 @@ To configure this application there are 2 files that require modification.
 2. `./.env`
 
     This file contains the secrets required for the application and can be set eitehr through ENV variables or through this file.
+* `MQ_HOST` = Host of the RabbitMQ instance set in `./src/config.js`
 * `MQ_USER` = Username for RabbitMQ instance set in `./src/config.js`
 * `MQ_PASS` = Password for RabbitMQ instance
+* `account_url` = The url of the Concierge instance to be used for this micro service
 * `client_id` = The client_ID from the client created in Concierge for this micro service
 * `client_secret` = The client secret for the Client ID listed above.
 * `userMail` = Email address of the email account you use.
 * `passMail` = Password of the email account.
 * `hostMail` = Host of the email account (Ex: smtp.gmail.com).
 * `portMail` = Port of the SMTP server to connect to.
+* `PRISMA_HOST` = Host of the prisma instance that will be used by this micro service
 
 ### Development
 
