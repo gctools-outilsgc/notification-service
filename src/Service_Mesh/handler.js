@@ -8,7 +8,7 @@ const config = require("../config");
 const context = {
     prisma: new Prisma({
         typeDefs: "./src/generated/prisma.graphql",
-        endpoint: "http://"+config.prisma.host+":4466/profile/",
+        endpoint: "http://"+config.prisma.host+":4466/",
         debug: config.prisma.debug,
       }),
 };
@@ -19,7 +19,7 @@ async function msgHandler(msg, success) {
     switch (msg.fields.routingKey){
         case "profile.notification":
             var args = {
-                gcID: messageBody.gcID,
+                gcID: String(messageBody.gcID),
                 appID: messageBody.appID,
                 actionLevel: messageBody.actionLevel,
                 online: {
@@ -35,9 +35,12 @@ async function msgHandler(msg, success) {
                 },
             };
             //WIP TESTING 
-            context.token = args.gcID;
+            context.token = {
+                sub: args.gcID.toString()
+            };
+            console.log("LOOK AT ME --" + args.online.titleEn);
             try {
-                await createNotification(null, args, context, "{gcID, appID, actionLevel, online, whoDunIt}");
+                await createNotification(null, args, context, "{gcID, appID, actionLevel, online {titleEn, titleFr, descriptionEn, descriptionFr}, whoDunIt {gcID, teamID, organizationID}}");
                 success(true);
             } catch (err) {
                 if(err instanceof GraphQLError) {
