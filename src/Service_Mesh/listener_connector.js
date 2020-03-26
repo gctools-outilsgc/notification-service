@@ -12,6 +12,7 @@ var listenQueueOptions = {
 // to the listenExhcnageAndBindings ojbect below
 const listenExchangesAndBindings = {
     // example; account: ["user.new", "user.modification", "user.delete"],
+    profile: ["profile.notification"],
 };
 
 function closeOnErr(err, listenerChannel) {
@@ -61,9 +62,11 @@ function listenMessageQueue(exchange){
                                 if (success){
                                     // Acknowledge processing and remove from queue
                                     listenerChannel.ack(msg);
+                                    console.info(msg);
                                 } else {
                                     // Reject processing and return to queue
                                     listenerChannel.nack(msg);
+                                    console.info(msg);
                                 }
                             } catch (err) {
                                 closeOnErr(err);

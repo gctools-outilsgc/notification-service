@@ -15,26 +15,38 @@ const context = {
 
 async function msgHandler(msg, success) {
     const messageBody = JSON.parse(msg.content.toString());
-    context.defaults = "TODO LATER";
+    context.defaults = "";
     switch (msg.fields.routingKey){
         case "profile.notification":
             var args = {
                 gcID: messageBody.gcID,
                 appID: messageBody.appID,
                 actionLevel: messageBody.actionLevel,
-                email: messageBody.email,
-                online: messageBody.online,
-                whoDunit: messageBody.whoDunit,
+                online: {
+                    titleEn: messageBody.online.titleEn,
+                    titleFr: messageBody.online.titleFr,
+                    descriptionEn: messageBody.online.descriptionEn,
+                    descriptionFr: messageBody.online.descriptionFr
+                },
+                whoDunIt: {
+                    gcID: messageBody.whoDunIt.gcID,
+                    teamID: messageBody.whoDunIt.teamID,
+                    organizationID: messageBody.whoDunIt.organizationID
+                },
             };
+            //WIP TESTING 
+            context.token = args.gcID;
             try {
-                await createNotification(null, args, context, "{gcID, appID, actionLevel, email, online, whoDunit}");
+                await createNotification(null, args, context, "{gcID, appID, actionLevel, online, whoDunIt}");
                 success(true);
             } catch (err) {
                 if(err instanceof GraphQLError) {
                     console.log(err);
+                    console.info("[ARGS - GQL ERR]: "+args.online.titleEn);
                     success(true);
                 } else {
                     console.log(err);
+                    console.info("[ARGS]: "+args.online.titleEn);
                     success(false);  
                 }
             }
