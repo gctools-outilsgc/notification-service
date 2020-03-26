@@ -34,22 +34,18 @@ async function msgHandler(msg, success) {
                     organizationID: messageBody.whoDunIt.organizationID
                 },
             };
-            //WIP TESTING 
             context.token = {
                 sub: args.gcID.toString()
             };
-            console.log("LOOK AT ME --" + args.online.titleEn);
             try {
                 await createNotification(null, args, context, "{gcID, appID, actionLevel, online {titleEn, titleFr, descriptionEn, descriptionFr}, whoDunIt {gcID, teamID, organizationID}}");
                 success(true);
             } catch (err) {
                 if(err instanceof GraphQLError) {
                     console.log(err);
-                    console.info("[ARGS - GQL ERR]: "+args.online.titleEn);
                     success(true);
                 } else {
                     console.log(err);
-                    console.info("[ARGS]: "+args.online.titleEn);
                     success(false);  
                 }
             }
