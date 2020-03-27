@@ -1,4 +1,4 @@
-const {copyValueToObjectIfDefined} = require("./helper/objectHelper");
+const {copyValueToObjectIfDefined, propertyExists} = require("./helper/objectHelper");
 const { addFragmentToInfo } = require("graphql-binding");
 
 function notifications(_, args, context, info) {
@@ -8,9 +8,13 @@ function notifications(_, args, context, info) {
         gcID: context.token.sub,
         appID: copyValueToObjectIfDefined(args.appID),
         actionLevel:  copyValueToObjectIfDefined(args.actionLevel),
+        online: {
+          viewed: copyValueToObjectIfDefined(args.viewed),
+        },
       },
       skip: copyValueToObjectIfDefined(args.skip),
       first: copyValueToObjectIfDefined(args.first),
+      orderBy: copyValueToObjectIfDefined(args.orderBy),
     },
     info
   );
