@@ -12,6 +12,7 @@ var listenQueueOptions = {
 // to the listenExhcnageAndBindings ojbect below
 const listenExchangesAndBindings = {
     // example; account: ["user.new", "user.modification", "user.delete"],
+    profile: ["profile.notification"],
 };
 
 function closeOnErr(err, listenerChannel) {
