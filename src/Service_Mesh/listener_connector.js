@@ -62,11 +62,9 @@ function listenMessageQueue(exchange){
                                 if (success){
                                     // Acknowledge processing and remove from queue
                                     listenerChannel.ack(msg);
-                                    console.info(msg);
                                 } else {
                                     // Reject processing and return to queue
                                     listenerChannel.nack(msg);
-                                    console.info(msg);
                                 }
                             } catch (err) {
                                 closeOnErr(err);
