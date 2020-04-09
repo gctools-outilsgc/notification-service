@@ -22,6 +22,13 @@ async function msgHandler(msg, success) {
                 gcID: String(messageBody.gcID),
                 appID: messageBody.appID,
                 actionLevel: messageBody.actionLevel,
+                email: {
+                    to: messageBody.email.to,
+                    from: config.email.host,
+                    subject: messageBody.email.subject,
+                    body: messageBody.email.body,
+                    html: true
+                },
                 online: {
                     titleEn: messageBody.online.titleEn,
                     titleFr: messageBody.online.titleFr,
@@ -38,7 +45,7 @@ async function msgHandler(msg, success) {
                 sub: args.gcID.toString()
             };
             try {
-                await createNotification(null, args, context, "{gcID, appID, actionLevel, online {titleEn, titleFr, descriptionEn, descriptionFr}, whoDunIt {gcID, teamID, organizationID}}");
+                await createNotification(null, args, context, "{gcID, appID, actionLevel, email {to, from, subject, body, html}, online {titleEn, titleFr, descriptionEn, descriptionFr}, whoDunIt {gcID, teamID, organizationID}}");
                 success(true);
             } catch (err) {
                 if(err instanceof GraphQLError) {
