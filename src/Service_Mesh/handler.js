@@ -27,7 +27,7 @@ async function msgHandler(msg, success) {
                     from: config.email.host,
                     subject: messageBody.email.subject,
                     body: messageBody.email.body,
-                    html: true
+                    html: messageBody.email.html
                 },
                 online: {
                     titleEn: messageBody.online.titleEn,
