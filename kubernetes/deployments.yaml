@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: prisma
-        image: notification-apollo:latest
+        image: digitalcollab/notifications-apollo:latest
         ports:
         - containerPort: 4466
         env:
@@ -65,7 +65,7 @@ spec:
         ports:
         - containerPort: 4466
         env:
-        - name: "PRISMA_CONFIG": 
+        - name: "PRISMA_CONFIG"
           valueFrom:
             secretKeyRef:
               name: prisma-env
