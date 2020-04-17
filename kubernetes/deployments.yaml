@@ -1,11 +1,14 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: notification-apollo
   namespace: notification
 spec:
-  replicas: 1 # tells deployment to run 1 pod matching the template
-  template: # create pods using pod definition in this template
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: notification-apollo
+  template: 
     metadata:
       labels:
         app: notification-apollo
@@ -20,35 +23,38 @@ spec:
           value: "production"
         - name: "PRISMA_API_ENDPOINT"
           value: "prisma"
-        - name: "client_id": 
+        - name: "client_id"
           valueFrom:
             secretKeyRef:
               name: apollo-env
               key: client_id
-        - name: "client_secret": 
+        - name: "client_secret"
           valueFrom:
             secretKeyRef:
               name: apollo-env
               key: client_secret
-        - name: "MQ_USER": 
+        - name: "MQ_USER"
           valueFrom:
             secretKeyRef:
               name: apollo-env
               key: MQ_USER
-        - name: "MQ_PASS": 
+        - name: "MQ_PASS"
           valueFrom:
             secretKeyRef:
               name: apollo-env
               key: MQ_PASS
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prismagraphql
   namespace: notification
 spec:
-  replicas: 1 # tells deployment to run 1 pod matching the template
-  template: # create pods using pod definition in this template
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: prismagraphql
+  template: 
     metadata:
       labels:
         app: prismagraphql
@@ -65,14 +71,17 @@ spec:
               name: prisma-env
               key: PRISMA_CONFIG
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
   namespace: notification
 spec:
-  replicas: 1 # tells deployment to run 1 pod matching the template
-  template: # create pods using pod definition in this template
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: postgres
+  template: 
     metadata:
       labels:
         app: postgres
@@ -101,5 +110,5 @@ spec:
       - name: postgres-volume
         azureDisk:
           kind: Managed
-          diskName: accountDBVolume
+          diskName: notificationDBVolume
           diskURI: /subscriptions/{sub-id}/resourcegroups/{group-name}/providers/microsoft.compute/disks/notificationDBVolume
