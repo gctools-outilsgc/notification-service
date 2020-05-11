@@ -34,7 +34,7 @@ async function msgHandler(msg, success) {
                     organizationID: messageBody.whoDunIt.organizationID
                 },
             };
-            if (!config.email.host || !config.email.port || !config.email.email || !config.email.password) {
+            if (config.email.host && config.email.port && config.email.email && config.email.password) {
                 args.email = {
                     to: messageBody.email.to,
                     from: config.email.host,
