@@ -3,13 +3,19 @@
 # The access token passed must be valid in order to proceed.
 directive @isAuthenticated on OBJECT | FIELD_DEFINITION
 
+# import NotificationSubscriptionPayload from "./generated/prisma.graphql"
+
 type Query{
     notifications(appID: String, actionLevel: String, viewed: Boolean skip: Int, first: Int, orderBy: OrderByInput): [Notification!]! @isAuthenticated
 }
 
 type Mutation{
-    createNotification(appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification! @isAuthenticated
+    createNotification(appID: String!, actionLink: String, actionLevel: actionLevel!, email: EmailInput, online: OnlineInput, whoDunIt: whoDunItInput): Notification! #@isAuthenticated
     updateNotification(id: ID!, online: UpdateOnlineInput): Notification! @isAuthenticated
+}
+
+type Subscription {
+    newNotification: NotificationSubscriptionPayload
 }
 
 enum actionLevel{
@@ -88,4 +94,28 @@ input whoDunItInput{
   gcID: String
   teamID: String
   organizationID: String
+}
+
+
+type NotificationPreviousValues {
+  id: ID!
+  generatedOn: String!
+  modifiedOn: String
+  gcID: String!
+  appID: String!
+  actionLink: String
+  actionLevel: actionLevel!
+}
+
+type NotificationSubscriptionPayload {
+  mutation: MutationType!
+  node: Notification
+  updatedFields: [String!]
+  previousValues: NotificationPreviousValues
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
 }

@@ -1,10 +1,13 @@
-const {copyValueToObjectIfDefined, propertyExists} = require("./helper/objectHelper");
+const { copyValueToObjectIfDefined, propertyExists } = require("./helper/objectHelper");
 const { UserInputError } = require("apollo-server");
 const emailGenerator = require("./emailGenerator.js");
+const { PubSub, withFilter } = require('apollo-server');
 
-async function createNotification(_, args, context, info){
+const pubsub = new PubSub();
 
-  if (!propertyExists(args, "online") && !propertyExists(args, "email")){
+async function createNotification(_, args, context, info) {
+
+  if (!propertyExists(args, "online") && !propertyExists(args, "email")) {
     throw new Error("A notification must be created with either Email or Online information");
   }
 
@@ -18,7 +21,7 @@ async function createNotification(_, args, context, info){
   };
 
   //create online notification
-  if(propertyExists(args, "online")){
+  if (propertyExists(args, "online")) {
     createNotificationData.online = {
       create: {
         titleEn: args.online.titleEn,
@@ -30,7 +33,7 @@ async function createNotification(_, args, context, info){
   }
 
   //create email notification
-  if(propertyExists(args, "email")){
+  if (propertyExists(args, "email")) {
     createNotificationData.email = {
       from: args.email.from,
       to: args.email.to,
@@ -41,7 +44,7 @@ async function createNotification(_, args, context, info){
 
     var sendError = await emailGenerator.sendEmail(args);
 
-    if(sendError.status !== false){
+    if (sendError.status !== false) {
       createNotificationData.email.sendError = sendError.msg;
       createNotificationData.email.status = "Queued";
     } else {
@@ -62,7 +65,7 @@ async function createNotification(_, args, context, info){
   }
 
   //who caused the notification
-  if(propertyExists(args, "whoDunIt")){
+  if (propertyExists(args, "whoDunIt")) {
     createNotificationData.whoDunIt = {
       create: {
         gcID: args.whoDunIt.gcID,
@@ -72,24 +75,28 @@ async function createNotification(_, args, context, info){
     };
   }
 
-  return await context.prisma.mutation.createNotification({
+  const notification = await context.prisma.mutation.createNotification({
     data: createNotificationData,
   }, info);
+
+  pubsub.publish("new_notification", { newNotification: notification });
+
+  return notification;
 }
 
 
 
-async function updateNotification(_, args, context, info){
+async function updateNotification(_, args, context, info) {
 
   const notification = await context.prisma.query.notification(
     {
-      where:{
+      where: {
         id: args.id
       }
     }
   );
 
-  if(notification === null || typeof notification == "undefined") {
+  if (notification === null || typeof notification == "undefined") {
     throw new UserInputError("Could not find notification with id: " + args.id);
   }
 
