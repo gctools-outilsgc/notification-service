@@ -29,21 +29,44 @@ const schema = makeExecutableSchema({
   }
 });
 
-const pubsub = new PubSub();
+//const pubsub = new PubSub();
 
 const server = new ApolloServer({
   schema,
   tracing: config.app.tracing,
-  context: async (req) => ({
-    ...req,
-    prisma: new Prisma({
-      typeDefs: "./src/generated/prisma.graphql",
-      endpoint: "http://" + config.prisma.host + ":4466",
-      debug: config.prisma.debug,
-    }),
-    token: await introspect.verifyToken(req),
-    pubsub: pubsub,
-  }),
+  context: async ({ req, connection }) => {
+    if (connection) {
+      return {
+        ...connection,
+        token: connection.context.token,
+        prisma: new Prisma({
+          typeDefs: "./src/generated/prisma.graphql",
+          endpoint: "http://" + config.prisma.host + ":4466",
+          debug: config.prisma.debug,
+        }),
+      }
+    } else {
+      return {
+        ...req,
+        prisma: new Prisma({
+          typeDefs: "./src/generated/prisma.graphql",
+          endpoint: "http://" + config.prisma.host + ":4466",
+          debug: config.prisma.debug,
+        }),
+        token: await introspect.verifyToken(req),
+        //pubsub: new PubSub()
+      }
+    }
+  },
+  subscriptions: {
+    onConnect: async (connectionParams, webSocket, context) => {
+      const token = await introspect.verifySubscriptionToken(connectionParams.authToken);
+      return {
+        token: token
+      }
+    },
+    onDisconnect: () => console.log('Websocket CONNECTED'),
+  },
 });
 
 
