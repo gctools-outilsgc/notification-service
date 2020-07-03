@@ -54,42 +54,6 @@ async function verifyToken(request) {
 
 }
 
-async function verifySubscriptionToken(token) {
-
-  var tokenData;
-
-  //base64 encode client_id:client_secret for authorization
-  let auth = config.openId.id + ":" + config.openId.secret;
-  let base64auth = Buffer.from(auth).toString("base64");
-
-  const url = config.openId.url + "/openid/introspect";
-  const postOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Basic " + base64auth
-    },
-    body: "token=" + token
-  };
-
-  await fetch(url, postOptions)
-    .then((response) => response.json())
-    .then(function (data) {
-      tokenData = data;
-    })
-    .catch((error) => {
-      const errorMsg = {
-        "active": false,
-        "message": error.message
-      };
-      tokenData = errorMsg;
-    });
-
-  return tokenData;
-
-}
-
 module.exports = {
-  verifyToken,
-  verifySubscriptionToken
+  verifyToken
 };

@@ -1,4 +1,6 @@
-const { ApolloServer, gql, makeExecutableSchema, PubSub, withFilter } = require("apollo-server");
+const { ApolloServer, gql, makeExecutableSchema } = require("apollo-server-express");
+const express = require("express");
+const http = require("http");
 const { Prisma } = require("prisma-binding");
 const Query = require("./resolvers/Query");
 const Mutation = require("./resolvers/Mutations");
@@ -29,7 +31,7 @@ const schema = makeExecutableSchema({
   }
 });
 
-//const pubsub = new PubSub();
+const app = express();
 
 const server = new ApolloServer({
   schema,
@@ -60,20 +62,24 @@ const server = new ApolloServer({
   },
   subscriptions: {
     onConnect: async (connectionParams, webSocket, context) => {
-      const token = await introspect.verifySubscriptionToken(connectionParams.authToken);
+      const token = await introspect.verifyToken(connectionParams);
       return {
         token: token
       }
-    },
-    onDisconnect: () => console.log('Websocket CONNECTED'),
+    }
   },
 });
 
+server.applyMiddleware({ app });
 
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
 
-server.listen().then(({ url }) => {
-  // eslint-disable-next-line no-console
-  console.info(`🚀 GraphQL Server ready at ${url}`);
+const PORT = 4000;
+httpServer.listen(PORT, () => {
+  console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+  const subPath = server.subscriptionsPath;
+  console.log(`Subscriptions are at ws://localhost:${PORT}${subPath}`);
 });
 
 // Launch process to listen to service message queue
