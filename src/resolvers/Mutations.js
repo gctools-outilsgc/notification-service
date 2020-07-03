@@ -1,9 +1,6 @@
 const { copyValueToObjectIfDefined, propertyExists } = require("./helper/objectHelper");
 const { UserInputError } = require("apollo-server");
 const emailGenerator = require("./emailGenerator.js");
-const { PubSub, withFilter } = require('apollo-server');
-
-const pubsub = new PubSub();
 
 async function createNotification(_, args, context, info) {
 
@@ -75,13 +72,10 @@ async function createNotification(_, args, context, info) {
     };
   }
 
-  const notification = await context.prisma.mutation.createNotification({
+  return await context.prisma.mutation.createNotification({
     data: createNotificationData,
   }, info);
 
-  pubsub.publish("new_notification", { newNotification: notification });
-
-  return notification;
 }
 
 
