@@ -9,15 +9,15 @@ const config = require("../config");
 
 // Verify if access token is valid and not expired
 
-async function verifyToken(request){
+async function verifyToken(request) {
 
   var token;
   var tokenData;
 
   //see if token provided in request
-  if(await request.req.headers.hasOwnProperty("authorization")){
+  if (await request.headers.hasOwnProperty("authorization")) {
     //remove "bearer" from token
-    var splitReq = request.req.headers.authorization.split(" ");
+    var splitReq = request.headers.authorization.split(" ");
     token = splitReq[1];
   } else {
     return false;
@@ -38,22 +38,22 @@ async function verifyToken(request){
   };
 
   await fetch(url, postOptions)
-  .then((response) => response.json())
-  .then(function(data){ 
-    tokenData = data;
-  })
-  .catch((error) => {
-    const errorMsg = {
-      "active": false,
-      "message": error.message
-    };
-    tokenData = errorMsg;
-  });
+    .then((response) => response.json())
+    .then(function (data) {
+      tokenData = data;
+    })
+    .catch((error) => {
+      const errorMsg = {
+        "active": false,
+        "message": error.message
+      };
+      tokenData = errorMsg;
+    });
 
   return tokenData;
 
 }
 
 module.exports = {
-  verifyToken,
+  verifyToken
 };
