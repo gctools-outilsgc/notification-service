@@ -14,7 +14,7 @@ def k8s_get_deploy(name, namespace):
     config.load_incluster_config()
 
     v1 = client.AppsV1Api()
-    deploys = v1.list_namespaced_deployment(watch=False, namespace)
+    deploys = v1.list_namespaced_deployment(watch=False, namespace=namespace)
     for i in deploys.items:
         if i.metadata.name == name:
             print("=== %s\t%s\t%s\t%s" %
