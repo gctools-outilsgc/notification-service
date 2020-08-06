@@ -11,7 +11,7 @@ events.on("image_push", function(e, project) {
   var update = new Job("update", "python:3")
   update.tasks = [
     "pip install kubernetes",
-    "python /src/.brigade/test.py"
+    "python /src/.brigade/update.py"
   ]
   
   var notify = new Job("notify", "alpine:3.4")
