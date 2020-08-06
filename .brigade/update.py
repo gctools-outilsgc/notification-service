@@ -10,11 +10,11 @@ def get_latest_sha(repo):
     sha = data["images"][0]["digest"]
     return sha
 
-def k8s_get_deploy(name):
+def k8s_get_deploy(name, namespace):
     config.load_incluster_config()
 
     v1 = client.AppsV1Api()
-    deploys = v1.list_namespaced_deployment(watch=False, namespace="naas")
+    deploys = v1.list_namespaced_deployment(watch=False, namespace)
     for i in deploys.items:
         if i.metadata.name == name:
             print("=== %s\t%s\t%s\t%s" %
@@ -26,7 +26,7 @@ def k8s_get_deploy(name):
 def k8s_patch_deploy(deploy):
     v1 = client.AppsV1Api()
 
-    api_response = v1.patch_namespaced_deployment( name=deploy.metadata.name, namespace="directory", body=deploy)
+    api_response = v1.patch_namespaced_deployment( name=deploy.metadata.name, namespace=deploy.metadata.namespace, body=deploy)
     print("Deployment updated. status='%s'" % str(api_response.status))
 
 if __name__ == "__main__":
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     digest=get_latest_sha(repo)
 
     config.load_incluster_config()
-    deploy = k8s_get_deploy("notification-apollo")
+    deploy = k8s_get_deploy("notification-apollo", "naas")
 
     print("\n")
     print("%s\t%s\t%s\t%s" %
