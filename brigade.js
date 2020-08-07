@@ -18,7 +18,7 @@ events.on("image_push", function(e, project) {
   notify.env.CHATKEY = project.secrets.chatKey
   notify.tasks = [
     "apk update && apk add curl",
-    "curl -X POST -H 'Content-Type: application/json' --data '{\"username\":\"Brigade\",\"icon_emoji\":\":k8s:\",\"text\":\"naas deployment updated.\"}' https://message.gccollab.ca/hooks/$CHATKEY"      //test rocket chat notification
+    "curl -X POST -H 'Content-Type: application/json' --data '{\"username\":\"Brigade\",\"icon_emoji\":\":k8s:\",\"text\":\"NaaS prod deployment updated.\"}' https://message.gccollab.ca/hooks/$CHATKEY"      //test rocket chat notification
   ]
   
   update.run().then(() => { notify.run() })
