@@ -48,7 +48,7 @@
     "graphql-binding": "^2.5.0",
     "graphql-import": "^1.0.2",
     "http": "0.0.1-security",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.1",
     "nodemailer": "^5.1.1",
     "prisma": "^1.27.0",
     "prisma-binding": "^2.3.3",
