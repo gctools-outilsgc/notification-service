@@ -37,7 +37,7 @@ async function msgHandler(msg, success) {
             if (config.email.host && config.email.port && config.email.email && config.email.password) {
                 args.email = {
                     to: messageBody.email.to,
-                    from: config.email.host,
+                    from: messageBody.email.from,
                     subject: messageBody.email.subject,
                     body: messageBody.email.body,
                     html: messageBody.email.html
